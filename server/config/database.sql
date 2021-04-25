@@ -74,3 +74,18 @@ INSERT INTO users (name, email, password) VALUES
 --INSERT DATA USERS WITH ADMIN
 INSERT INTO users (name, email, password, isAdmin) VALUES 
 ('Eko','a2G@gmail.com' , 'a', TRUE ), 
+
+
+--INSERT DATA PRODUCTS
+INSERT INTO products (name, image, description, brand, category , price, countInStock, rating, numReviews) VALUES 
+(
+'Airpods Wireless Bluetooth Headphones',
+'/images/airpods.jpg',
+'Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working',
+'Apple',
+'Electronics',
+ 89.99,
+ 3,
+ 0,
+ 0
+)

@@ -1,0 +1,16 @@
+alur redux
+
+create redux ( in redux there are combineReducer)
+create reducer ( in this case i create 'some' )
+impor 'some' reducer to redux ( in combineReducer
+
+create action
+in action you use axios to fetch data
+
+2. add new feature in case product details
+
+- create constant
+- create product details reducer
+- add new reducer to redux store
+- add new action
+- go to product screen
