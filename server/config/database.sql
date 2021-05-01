@@ -86,6 +86,6 @@ INSERT INTO products (name, image, description, brand, category , price, countIn
 'Electronics',
  89.99,
  3,
- 0,
- 0
+ 4.5,
+ 12
 )

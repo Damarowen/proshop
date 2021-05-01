@@ -14,3 +14,8 @@ in action you use axios to fetch data
 - add new reducer to redux store
 - add new action
 - go to product screen
+
+NOTE 
+
+- useDispatch is about action , use it to change state or type reducer
+- useSelector is about grab a state, and display it in component etc

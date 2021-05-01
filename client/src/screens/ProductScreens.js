@@ -14,11 +14,10 @@ const ProductScreens = ({ history, match }) => {
 
     const dispatch = useDispatch()
 
-    //* productDetails from redux store
+    //* productDetails from redux store reducer
     const productDetails = useSelector(state => state.productDetails)
     const { loading, product, error } = productDetails
 
-console.log()
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
 
@@ -48,7 +47,7 @@ const addToCartHandler = () => {
                             <ListGroup.Item>
                                 <Rating
                                     value={product.rating}
-                                    text={`${product.numReviews} reviews`}
+                                    text={`${product.numreviews} reviews`}
                                 />
                             </ListGroup.Item>
                             <ListGroup.Item>Price: ${product.price}</ListGroup.Item>

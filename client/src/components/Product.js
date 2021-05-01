@@ -6,11 +6,11 @@ import Rating from '../components/Rating'
 const Product = ({ product }) => {
     return (
         <Card className='my-3 p-3 rounded'>
-            <Link to={`/product/${product._id}`}>
+            <Link to={`/product/${product.product_id}`}>
                 <Card.Img src={product.image} variant='top' />
             </Link>
             <Card.Body>
-                <Link to={`/product/${product._id}`}>
+                <Link to={`/product/${product.product_id}`}>
                     <Card.Title >
                         <strong>{product.name}</strong>
                     </Card.Title>
@@ -18,7 +18,7 @@ const Product = ({ product }) => {
      
 
             <Card.Text>
-                <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                <Rating value={product.rating} text={`${product.numreviews} reviews`} />
             </Card.Text>
 
             <Card.Text as='h3'>${product.price}</Card.Text>

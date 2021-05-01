@@ -1,30 +1,65 @@
 import React from 'react'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
+import { logout } from '../actions/user.action'
 
 const Header = () => {
-    return (
-        <>
-            <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
-                <Container>
-                    <LinkContainer to='/'>
-                        <Navbar.Brand >Proshop</Navbar.Brand>
-                    </LinkContainer>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="ml-auto">
-                            <LinkContainer to="/cart">
-                                <Nav.Link ><i className="fas fa-cart-plus" aria-hidden="true"></i> Cart</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/login">
-                                <Nav.Link > <i className="fas fa-user" aria-hidden="true"></i>   Sign In</Nav.Link>
-                            </LinkContainer>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </>
+  const dispatch = useDispatch()
+
+  //* bring userLogin state with useSelector
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
+
+let NavUser
+if(userInfo) {
+    NavUser = (
+        [
+            <NavDropdown title={userInfo.name} id='username'>
+              <LinkContainer to='/profile'>
+                <NavDropdown.Item>Profile</NavDropdown.Item>
+              </LinkContainer>
+              <NavDropdown.Item onClick={logoutHandler}>
+                Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+        ]
     )
+} else {
+  NavUser = ([ <LinkContainer to='/login'>
+    <Nav.Link>
+      <i className='fas fa-user'></i> Sign In
+    </Nav.Link>
+  </LinkContainer>])
+}
+
+  return (
+    <header>
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+        <Container>
+          <LinkContainer to='/'>
+            <Navbar.Brand>ProShop</Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls='basic-navbar-nav' />
+          <Navbar.Collapse id='basic-navbar-nav'>
+           
+            <Nav className='ml-auto'>
+              <LinkContainer to='/cart'>
+                <Nav.Link>
+                  <i className='fas fa-shopping-cart'></i> Cart
+                </Nav.Link>
+              </LinkContainer>
+           {NavUser}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
+  )
 }
 
 export default Header

@@ -3,7 +3,7 @@ const router = express.Router()
 
 import pool from '../config/db.js'
 import asynchandler from 'express-async-handler'
-import products from '../data/products.js'
+// import products from '../data/products.js'
 
 
 //* @desc  fetch all products
@@ -11,9 +11,8 @@ import products from '../data/products.js'
 //* @access  Public
 const getProducts = asynchandler(async (req, res) => {
 
-  // const products = await pool.query('SELECT * FROM products')
-
-  res.json(products)
+  const products = await pool.query('SELECT * FROM products')
+  res.json(products.rows)
 })
 
 

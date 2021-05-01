@@ -13,7 +13,7 @@ const CartScreen = ({ match, location, history }) => {
   const qty = location.search ? Number(location.search.split('=')[1]) : 1
   const dispatch = useDispatch()
 
-    //* cart from redux store
+    //* cart from redux store reducer
   const cart = useSelector((state) => state.cart)
   console.log(cart)
   const { cartItems } = cart
