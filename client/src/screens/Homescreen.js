@@ -21,20 +21,17 @@ const Homescreen = () => {
     }, [dispatch])
 
 
-    let body = (
-        <Row>
+ 
+    return (
+        <>
+            <h1>Latest Product</h1>
+            {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> :   <Row>
             {products.map(item =>
                 <Col key={item._id} sm={12} md={6} lg={4} xl={3}>
                     <Product product={item} />
                 </Col>
             )}
-        </Row>
-    )
-
-    return (
-        <>
-            <h1>Latest Product</h1>
-            {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> : body}
+        </Row>}
         </>
     )
 }

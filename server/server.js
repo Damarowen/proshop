@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import colors from 'colors'
 import productsRoutes from './routes/products.route.js'
+import userRoutes from './routes/user.route.js'
+
 import { notFound, errorHandler } from './middleware/error.middleware.js'
 
 
@@ -21,6 +23,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/products', productsRoutes )
+app.use('/api/users', userRoutes )
+
 
 //*MIDDLEWARE
 app.use(notFound)

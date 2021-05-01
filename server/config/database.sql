@@ -8,7 +8,7 @@ CREATE TABLE users(
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     isadmin BOOLEAN DEFAULT FALSE,
-    datetime timestamp NOT NULL DEFAULT NOW().
+    datetime timestamp NOT NULL DEFAULT NOW(),
     PRIMARY KEY (id)
 )
 
@@ -45,7 +45,7 @@ CREATE TABLE products (
     rating INT NOT NULL DEFAULT 0,
     numReviews INT NOT NULL DEFAULT 0,
     price INT NOT NULL DEFAULT 0,
-    countInStock INT NOT NULL DEFAULT 0,
+    countinstock INT NOT NULL DEFAULT 0,
     datetime timestamp NOT NULL DEFAULT NOW(),
     PRIMARY KEY (product_id),
     FOREIGN KEY (reviews) REFERENCES reviews(review_id)
