@@ -19,21 +19,23 @@ import {
 } from '../reducers/cart.reducer'
 
 import {
-  userLoginReducer
+  userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer
 } from '../reducers/user.reducer'
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailReducer,
   cart: cartReducer,
-  userLogin: userLoginReducer
-
+  userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 })
 
 //* set local storage to initial state
 const cartItemsFromStorage = localStorage.getItem('cartItems') ?
   JSON.parse(localStorage.getItem('cartItems')) :
-  null
+  []
   
 const userInfoFromStorage = localStorage.getItem('userInfo') ?
   JSON.parse(localStorage.getItem('userInfo')) :

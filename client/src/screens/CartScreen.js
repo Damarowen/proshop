@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
-import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cart.action'
+
+import Message from '../components/Message'
 
 const CartScreen = ({ match, location, history }) => {
 
@@ -15,7 +16,6 @@ const CartScreen = ({ match, location, history }) => {
 
     //* cart from redux store reducer
   const cart = useSelector((state) => state.cart)
-  console.log(cart)
   const { cartItems } = cart
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const CartScreen = ({ match, location, history }) => {
         <ListGroup variant='flush' >
           {cartItems.map((item) => (
            
-            <ListGroup.Item key={item.product}>
+            <ListGroup.Item key={item.product_id}>
               <Row>
                 <Col md={2}>
                   <Image src={item.image} alt={item.name} fluid rounded />

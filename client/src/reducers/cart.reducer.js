@@ -31,7 +31,6 @@ export const cartReducer = (
                 cartItems: state.cartItems.filter((x) => x.product !== action.payload)
             }
             default:
-                console.log(state)
                 return state
     }
 }

@@ -14,6 +14,13 @@ const authUser = asyncHandler(async (req, res) => {
         password
     } = req.body
 
+
+    if (email.length === 0 || password.length === 0) {
+        res.status(400)
+        throw new Error('No Empty Field Please')
+    }
+
+
     //*2 check if email error
     const user = await pool.query(' SELECT * FROM users WHERE email = $1', [email]);
     if (user.rows.length == 0) {
@@ -56,10 +63,17 @@ const registerUser = asyncHandler(async (req, res) => {
         password
     } = req.body;
 
+
+    if (name.length === 0 || email.length === 0 || password.length === 0) {
+        res.status(400)
+        throw new Error('No Empty Field Please')
+    }
+
     //*2 check if user exist
     const user = await pool.query(" SELECT * FROM users WHERE email = $1", [email]);
     if (user.rows.length > 0) {
-        return res.status(400).json("user already exist")
+        res.status(401)
+        throw new Error('User Already Exist')
     }
 
 
@@ -81,10 +95,12 @@ const registerUser = asyncHandler(async (req, res) => {
     //*5. generating jwt token
     if (newUser) {
 
-        const token = generateToken(newUser.rows[0].id)
         res.status(201).json({
-            token: token,
-            data: newUser.rows[0]
+            _id: newUser.rows[0].id,
+            name: newUser.rows[0].name,
+            email: newUser.rows[0].email,
+            isAdmin: newUser.rows[0].isAdmin,
+            token: generateToken(newUser.rows[0].id)
         })
     } else {
         res.status(400)
@@ -92,36 +108,6 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
 
-
-
-
-    // const { name, email, password } = req.body
-
-    // const userExists = await User.findOne({ email })
-
-    // if (userExists) {
-    //   res.status(400)
-    //   throw new Error('User already exists')
-    // }
-
-    // const user = await User.create({
-    //   name,
-    //   email,
-    //   password,
-    // })
-
-    // if (user) {
-    //   res.status(201).json({
-    //     _id: user._id,
-    //     name: user.name,
-    //     email: user.email,
-    //     isAdmin: user.isAdmin,
-    //     token: generateToken(user._id),
-    //   })
-    // } else {
-    //   res.status(400)
-    //   throw new Error('Invalid user data')
-    // }
 })
 
 //* @desc    Get user profile
@@ -145,8 +131,48 @@ const getUserProfile = asyncHandler(async (req, res) => {
 })
 
 
+
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+const updateUserProfile = asyncHandler(async (req, res) => {
+    const user = await pool.query(' SELECT * FROM users WHERE id = $1', [req.user.id]);
+
+    if (user) {
+        user.rows[0].name = req.body.name || user.rows[0].name
+        user.rows[0].password = user.rows[0].password
+
+        if (req.body.password) {
+            const saltRound = 10;
+            const salt = await bcrypt.genSalt(saltRound);
+            const bcryptPassword = await bcrypt.hash(req.body.password,salt )
+            user.rows[0].password = bcryptPassword
+        }
+       
+
+        const updatedUser = await pool.query(
+            `UPDATE users SET name = $1, password = $2 WHERE id = $3 RETURNING *`,
+            [ user.rows[0].name, user.rows[0].password, req.user.id]
+        )
+
+        res.json({
+            _id: updatedUser.rows[0].id,
+            name: updatedUser.rows[0].name,
+            email: updatedUser.rows[0].email,
+            isadmin: updatedUser.rows[0].isadmin,
+            token: generateToken(user.rows[0].id)
+        })
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
+
+
+
 export {
     authUser,
     getUserProfile,
-    registerUser
+    registerUser,
+    updateUserProfile
 }

@@ -16,9 +16,11 @@ const Header = () => {
   }
 
 let NavUser
+
 if(userInfo) {
     NavUser = (
         [
+          
             <NavDropdown title={userInfo.name} id='username'>
               <LinkContainer to='/profile'>
                 <NavDropdown.Item>Profile</NavDropdown.Item>
@@ -30,7 +32,9 @@ if(userInfo) {
         ]
     )
 } else {
-  NavUser = ([ <LinkContainer to='/login'>
+  NavUser = ([ 
+  
+  <LinkContainer to='/login'>
     <Nav.Link>
       <i className='fas fa-user'></i> Sign In
     </Nav.Link>

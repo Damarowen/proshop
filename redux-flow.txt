@@ -19,3 +19,5 @@ NOTE
 
 - useDispatch is about action , use it to change state or type reducer
 - useSelector is about grab a state, and display it in component etc
+
+build reducer then dispatch ( reducer untuk mendefinisikan case, dispatch untuk trigger )
